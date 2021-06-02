@@ -95,10 +95,10 @@ namespace ScreeningTool.Controllers
 
 
 
-                //if (totalScore > 1) //save in qurantine table
-                //{
-                //    SaveQuarantine(sclogs.EmployeeId, sclogs.Id);
-                //}
+                if (totalScore > 1) //save in qurantine table
+                {
+                    SaveQuarantine(sclogs.EmployeeId, sclogs.Id);
+                }
 
 
                 Logs log = new Logs();
