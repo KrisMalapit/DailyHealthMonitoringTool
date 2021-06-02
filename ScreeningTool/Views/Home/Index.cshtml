@@ -1,0 +1,1110 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+</style>
+
+
+
+
+
+<div class="col-md-10 col-12 mr-auto ml-auto">
+    <div class="modal fade" id="modalDataPrivacy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="padding-right: 17px; display: block;" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-notice">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel"><strong>DATA PRIVACY</strong></h5>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <i class="material-icons">close</i>
+                        </button>*@
+                </div>
+                <div class="modal-body">
+                    <div class="instruction">
+                        SMPC protects the privacy of its employee’s personal information in accordance with the Data Privacy Act of 2012.  By completing this Daily Health Monitoring Tool, you consent to the collection and processing of your personal data for the purpose described in this document and that you are required by RA 11469, or Bayanihan to Heal as One Act, to provide truthful information.
+                    </div>
+                    @* <p>If you have more questions, don't hesitate to contact us or send us a tweet . We're here to help!</p>*@
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-info btn-round" data-dismiss="modal">I ACCEPT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="modal fade" id="modalDataPrivacy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-small">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to do this?</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Never mind</button>
+                        <button id="btnProceed" type="button" class="btn btn-success btn-link">
+                            Proceed
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-small">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to do this?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Never mind</button>
+                    <button id="btnProceed" type="button" class="btn btn-success btn-link">
+                        Proceed
+
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--      Wizard container        -->
+    <div class="wizard-container">
+        <div class="card card-wizard" data-color="rose" id="wizardProfile">
+            <form id="frm">
+                <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+
+                <div class="card-header text-center">
+                    <h3 class="card-title">
+                        Daily Health Monitoring Tool
+                    </h3>
+                    <h5 class="card-description">We ensure the safety, health and well-being of our employees and your safety matters to us. Your disclosure will help us maintain continuous business operations and keep everyone in our premises safe.  Please identify your condition/exposure by checking the appropriate box. Thank you.</h5>
+                </div>
+                <div class="wizard-navigation">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#about" data-toggle="tab" role="tab">
+                                Details
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#account" data-toggle="tab" role="tab">
+                                Questions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#address" data-toggle="tab" role="tab">
+                                Submit
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="about">
+
+                            <div class="row ">
+
+                                <label class="radio-inline">
+                                    Employee &nbsp; &nbsp;
+                                    <input id="radEmp" type="radio" name="Encoder" value="employee">
+                                    <span class="checkmark"></span>
+                                </label>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <label class="radio-inline">
+                                    Visitor &nbsp; &nbsp;
+                                    <input id="radVisitor" type="radio" name="Encoder" value="visitor">
+                                    <span class="checkmark"></span>
+                                </label>
+
+                            </div>
+
+
+
+                            <h5 class="info-text"> Kindly fill up details as part of verification of your identity.</h5>
+
+                            <div class="row justify-content-center">
+
+
+                                <div class="col-sm-8" id="divDetails">
+                                    <input id="EmpId" name="Id" hidden />
+
+                                    <div class="input-group form-control-lg" id="divEmployeeID">
+                                        <input id="DepartmentId" name="DepartmentId" hidden />
+                                        <div class="input-group-prepend ">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">perm_identity</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="exampleInput11" class="bmd-label-floating">Employee ID</label>
+                                            <input type="text" class="form-control" id="EmployeeId" name="EmployeeId" onfocusout="verifyEmployeeId(this)" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">face</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput1" class="bmd-label-floating">First Name</label>
+                                            <input type="text" class="form-control" id="FirstName" name="FirstName" required>
+
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">record_voice_over</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Last Name</label>
+                                            <input type="text" class="form-control" id="LastName" name="LastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">exposure_zero</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Age</label>
+                                            <input type="text" class="form-control" id="Age" name="Age" >
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg" hidden>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">restore</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Birthday</label>
+                                            <input type="text" class="form-control datepicker" id="Birthday" name="Birthday" >
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">phone</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Contact No</label>
+                                            <input type="text" class="form-control" id="ContactNo" name="ContactNo" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">person</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Contact Person</label>
+                                            <input type="text" class="form-control" id="ContactPerson" name="ContactPerson" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">contact_phone</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Contact Person No</label>
+                                            <input type="text" class="form-control" id="ContactPersonNo" name="ContactPersonNo" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">search</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">City/Municipality</label>
+                                            <input type="text" class="form-control" id="City" name="City" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">place</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Barangay</label>
+                                            <input type="text" class="form-control" id="Barangay" name="Barangay" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">airport_shuttle</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Pick Up Point</label>
+                                            <input type="text" class="form-control" id="PickUpPoint" name="PickUpPoint">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">pin_drop</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Workplace</label>
+                                            <div>
+                                                <select id="WorkPlace" name="WorkPlace" class="selectpicker" data-style="select-with-transition" required>
+                                                    <option value="">Please select</option>
+                                                    <option value="WFH">WFH</option>
+                                                    <option value="WFW">WFW</option>
+                                                    <option value="ON-LEAVE">ON LEAVE</option>
+                                                    <option value="WEEKEND">WEEKEND</option>
+                                                    <option value="HOLIDAY">HOLIDAY</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">ac_unit</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Temperature</label>
+                                            <input type="text" class="form-control" id="Temperature" name="Temperature" onkeypress="return isNumberKey(event)" required>
+                                        </div>
+                                    </div>
+                                    <div style="text-align:center!important;">
+                                        <label style="color:orange;">Note For Employee: You can always update your details by pressing the Update Record button.</label>
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+
+                            </div>
+                            <div style="text-align:center!important;">
+                                <input class="btn btn-success" id="btnUpdate" value="Update Record" type="button">
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="account">
+
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <div class="material-datatables">
+                                        <table class="table" id="tbl">
+                                            <thead class="text-warning">
+                                                <tr>
+
+                                                    <th style="width:70%">Condition / Exposure</th>
+                                                    <th style="width:15%">YES</th>
+                                                    <th style="width:15%">NO</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Are you a SENIOR CITIZEN / PREGNANT/ HEALTH WORKER/ With MEDICAL CONDITION?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q1" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q1" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have COUGH?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q2" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q2" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have COLDS?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q3" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q3" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have FEVER?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q20" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q20" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have DIARRHEA?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q4" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q4" value="0">
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have SORE THROAT?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q5" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q5" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have BODY WEAKNESS?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q6" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q6" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have HEADACHE?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q7" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q7" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Have you experienced ANY 2 OF THE SYMPTOMS mentioned ABOVE for 1 DAY or TWO within the last 5 days?
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q15" value="1">
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q15" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Have you been sick for a day or two within the last 5 days?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q13" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q13" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Have you lost your sense of taste, smell, etc?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q14" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q14" value="0">
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have DIFFICULTY OF BREATHING?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q8" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q8" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Do you have EASY FATIGUABILITY?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q9" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q9" value="0">
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Have you been notified to undergo quarantine period due to possible exposure and still serving the 14-day quarantine period?
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q16" value="1">
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q16" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Are you living in a Barangay/ Compound/ Street/ Condo where there is a higher case of PUI with a PUI or CONFIRMED COVID-19 Case 100 meters away from your house and WITHOUT ANY OF THE ABOVE SYMPTOMS?
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q17" value="1">
+                                                    </td>
+
+                                                    <td>
+                                                        <input type="radio" name="Q17" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Are you living in a Barangay/ Compound/ Street/ Condo where there is a higher case of PUI with a PUI or CONFIRMED COVID-19 Case 100 meters away from your house and EXPERIENCING ANY OF THE ABOVE SYMPTOMS?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q12" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q12" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Did you visit the hospital/clinic in the last 14 days?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q18" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q18" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Have you consulted/seen a doctor in the last 14 days related to the above symptoms or related symptoms?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q19" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q19" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Are you living in a Household with a PUI or CONFIRMED COVID-19 Case?
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q10" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q10" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        Did you have any DIRECT CONTACT with a CONFIRMED COVID-19 Case in the last 14 days?
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q11" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q11" value="0">
+                                                    </td>
+
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="address">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12">
+                                    <h5 class="info-text"> This will submit form. Continue? </h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+
+                    <div class="mr-auto">
+                        <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                    </div>
+                    <div class="ml-auto">
+
+                        <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                        <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;" id="btnSubmit">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- wizard container -->
+</div>
+
+<script src="~/js/core/jquery.min.js"></script>
+<script src="~/js/plugins/moment.min.js"></script>
+<script src="~/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script>
+       $("input[type=text]").keyup(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+            $('input[type=radio][name=Encoder]').change(function () {
+
+                if (this.value == 'employee') {
+                    $('#divEmployeeID').show();
+
+                    $('#FirstName').prop("readonly", true);
+                    $('#LastName').prop("readonly", true);
+                    $('#Age').prop("readonly", true);
+                    $('#divDetails input').each(function(){
+                                   $(this).val('');
+                    })
+
+                    $('#EmpId').val(0);
+                    $('#btnUpdate').prop('disabled', false)
+                    //$('#divVisitor').hide();
+                    //$('#EmployeeId').prop( "disabled", false );
+
+                }
+                else {
+                    $('#btnUpdate').prop('disabled', true)
+                    $('#EmpId').val(0);
+                    $('#divEmployeeID').hide();
+                    $('#FirstName').prop("readonly", false);
+                    $('#LastName').prop("readonly", false);
+                    $('#Age').prop("readonly", false);
+                    $('#divDetails input').each(function(){
+                                   $(this).val('');
+                                })
+                    //$('#EmployeeId').prop( "disabled", true );
+
+                     //$('#divEmp').hide();
+                     //$('#divVisitor').show();
+                }
+            });
+
+    function clearDetails() {
+                    $('#divDetails input').each(function(){
+                        $(this).val('');
+                     })
+             $("EmpId").val("0");
+    }
+    function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+    function verifyEmployeeId(v) {
+        if ($(v).val() == "") {
+            clearDetails()
+            return false;
+        }
+        //return false;
+         $.ajax({
+                    url: "@Url.Action("GetEmpDetails")"
+                    , method: "POST"
+                    , data: {EmpId : $(v).val()}
+                    , dataType: 'json'
+                    , success: function (responsedata) {
+
+                        if (responsedata.status == "success") {
+                            console.log(responsedata);
+                            if (responsedata.hasValue == "true") {
+                                $('#divDetails input').each(function(){
+                                   $(this).closest('div').addClass('is-filled');
+                                })
+
+                                $('#FirstName').val(responsedata.empfname);
+                                $('#LastName').val(responsedata.emplastname);
+                                $('#Age').val(responsedata.age);
+                                $('#ContactNo').val(responsedata.contactno);
+                                $('#ContactPerson').val(responsedata.contactperson);
+                                $('#ContactPersonNo').val(responsedata.contactpersonno);
+                                $('#City').val(responsedata.city);
+                                $('#Barangay').val(responsedata.barangay);
+                                $('#EmpId').val(responsedata.id);
+                                $('#DepartmentId').val(responsedata.departmentid);
+                                $('#PickUpPoint').val(responsedata.pickup);
+                                $('#Birthday').val(moment(responsedata.bday).format("MM/DD/YYYY"));
+                            } else {
+                                clearDetails();
+                                $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + "No record found for the particular employee"
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                            }
+
+
+                        } else {
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + responsedata.message
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                        }
+                    }
+                })
+
+
+
+
+
+
+    }
+
+    $('#btnProceed').click(function () {
+
+        var data = $('#divDetails :input').serialize();
+
+        $.ajax({
+                    url: "@Url.Action("UpdateEmpDetails")"
+                    , method: "POST"
+                    , data: data
+                    , dataType: 'json'
+                    , success: function (responsedata) {
+
+                        if (responsedata.status == "success") {
+
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Success</b> User details updated!"
+
+                                },
+                                    {
+                                        type: "success",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                 });
+                           $("#Age").val(responsedata.age);
+                           $("#modalUpdate").modal('hide');
+
+
+                        } else {
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + responsedata.message
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                        }
+                    }
+                })
+    })
+    $('#btnUpdate').click(function () {
+        if ( $('#FirstName').val()=="") {
+            $.notify({
+                icon: "add_alert",
+                message: "<b>Fail</b> - " + "No record found for the particular employee"
+
+            },
+            {
+                type: "danger",
+                timer: 1000,
+                placement: {
+                    from: "top",
+                    align: "center"
+                }
+            });
+            return false;
+        }
+        $('#modalUpdate').modal('show');
+    })
+    $('#btnSubmit').click(function () {
+                $(this).prop("disabled", true);
+
+                var data = $('#frm').serializeArray();
+                $("#tbl td[contenteditable=true]").each(function () {
+                    $name = $(this).prop('id');
+                    $name_value =  document.getElementById($name).innerHTML;
+                    $name_value = $name_value.replace("<br>", "");
+                    data.push({name: $name, value:$name_value});
+                 });
+
+
+                 $.ajax({
+                    url: "@Url.Action("SaveData")"
+                    , method: "POST"
+                    , data: data
+                    , dataType: 'json'
+                    , success: function (responsedata) {
+                        
+                        if (responsedata.status == "success") {
+                            $(this).prop("disabled", false);
+                            
+
+                            var scdate = moment(responsedata.screenDateTime).format("MM-DD-YYYY HH:mm:ss");
+                            console.log(scdate);
+                            window.location.href = "@Url.Action("ThankYou", "Home")?TotalScore="
+                                + responsedata.totalScore
+                                + "&EmployeeName=" + responsedata.empname
+                                + "&Remarks=" + responsedata.remarks
+                                + "&Encoder=" + responsedata.encoder
+                                + "&ScreenLogId=" + responsedata.screenLogId
+                                + "&DepartmentId=" + responsedata.deptId
+                                + "&EmployeeNo=" + responsedata.employeeNo
+                                + "&ScreenDateTime=" + scdate
+                                + "&QRKey=" + responsedata.qrKey;
+
+
+
+                        } else {
+                             $(this).prop("disabled", false);
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + responsedata.message
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                        }
+                    }
+                })
+            })
+
+
+
+            $(document).ready(function () {
+                //md.initFormExtendedDatetimepickers();
+                //$('#tbl').DataTable({
+                //    "pageLength": 50
+                //});
+
+
+                //$('#divVisitor').hide();
+
+
+                $('#EmpId').val(0);
+                $('#radEmp').prop('checked', true);
+
+                 $('#FirstName').prop("readonly", true);
+                $('#LastName').prop("readonly", true);
+                $('#Age').prop("readonly", true);
+                $('#tbl input[type=radio][value=0]').each(
+                    function () {
+
+                        //var opt = $(this).prop('name');
+
+
+                        $(this).prop('checked',true);
+                            //$name = $(this).prop('id');
+                            //$name_value =  document.getElementById($name).innerHTML;
+                            //$name_value = $name_value.replace("<br>", "");
+                            //data.push({name: $name, value:$name_value});
+                         }
+                );
+                 $('#modalDataPrivacy').modal('show');
+
+
+                $().ready(function () {
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+
+                    $('.fixed-plugin .active-color span').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
+
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .background-color .badge').click(function () {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('background-color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .img-holder').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
+
+
+                        var new_image = $(this).find("img").attr('src');
+
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function () {
+                                $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
+
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function () {
+                                $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
+
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                    $('.switch-sidebar-mini input').change(function () {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function () {
+                                $('body').addClass('sidebar-mini');
+
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function () {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function () {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
+                    });
+                });
+            });
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        // Initialise the wizard
+        demo.initMaterialWizard();
+        setTimeout(function () {
+            $('.card.card-wizard').addClass('active');
+        }, 600);
+    });
+</script>

@@ -1,0 +1,47 @@
+﻿@model ScreeningTool.Models.Company
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-text">
+                    <h4 class="card-title">Company</h4>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Code)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Code)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>

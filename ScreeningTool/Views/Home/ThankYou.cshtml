@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewData["Title"] = "ThankYou";
+}
+<style>
+    #loadingScreen {
+        display: none !important;
+    }
+</style>
+
+<div class="card">
+    <div class="card-body">
+        <br />
+
+
+        @if (ViewBag.QuarantineCounter < 0)
+        {
+            @if (ViewBag.TotalScore == 0)
+            {
+                <text>Dear </text> @ViewBag.EmployeeName<text>,
+                    <br />
+                    <br />
+                    <p>Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+                    <p>
+                        The results show that you’re FIT to report to work. Please continue observing proper hand hygiene and always wear your face mask and face shield. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212 or through email: hrod@semirarampc.com
+                    </p>
+                    <p>
+                        Stay safe!
+                    </p>
+                </text>
+
+
+            }
+            else if (ViewBag.TotalScore == 1)
+            {
+                <text>Dear </text> @ViewBag.EmployeeName <text>,
+                    <br />
+                    <br />
+                    <p>Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+                    <p>
+                        Your results show that your condition/exposure is LOW and ALLOWED TO REPORT TO WORK. We would like you to keep monitoring your condition and it is also recommended that you consult with a Medicard Affiliated Doctor. This information is also sent to your immediate supervisor. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212 or through email: hrod@semirarampc.com
+                    </p>
+                </text>
+
+
+
+            }
+        }
+        else if (ViewBag.QuarantineCounter == 0)
+        {
+            <text>Dear </text> @ViewBag.EmployeeName<text>,
+                <br />
+                <br />
+                <p> Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+                <p>
+
+                    @if (ViewBag.TotalScore == 0)
+                    {
+                        <text>
+                        The results show that you’re FIT to report to work. Please continue observing proper hand hygiene and always wear your face mask and face shield. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212 or through email: hrod@semirarampc.com
+                </text>
+            }
+            else if (ViewBag.TotalScore == 1)
+            {
+                <text>
+                    Your results show that your condition/exposure is LOW and ALLOWED TO REPORT TO WORK. We would like you to keep monitoring your condition and it is also recommended that you consult with a Medicard Affiliated Doctor. This information is also sent to your immediate supervisor. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212 or through email: hrod@semirarampc.com
+                </text>
+            }
+                    <br />
+                    <br />
+                    Thank you for completing your 14-day quarantine period, kindly submit your BHERT Cert to HROD upon returning to work.
+                </p>
+                <p>
+                    Stay safe!
+                </p>
+                </text>
+            }
+            else if (ViewBag.QuarantineCounter < 14)
+            {
+                <text>Dear </text> @ViewBag.EmployeeName<text>,
+                    <br />
+                    <br />
+                    <p> Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+                    <p>
+                        You still have @ViewBag.QuarantineCounter number of days left for your quarantine period.
+                    </p>
+                    <p>
+                        Stay safe!
+                    </p>
+                </text>
+            }
+            else
+            {
+                @if (ViewBag.TotalScore <= 3)
+                {
+                    <text>Dear </text> @ViewBag.EmployeeName <text>,
+                        <br />
+                        <br />
+                        <p>Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+
+                        <p>
+                            Your results show that you have MODERATE condition/exposure. YOU ARE NOT ALLOWED TO REPORT TO WORK FOR 14 DAYS.  Please STAY AT HOME AND UNDERGO THE MANDATORY 14-DAY QUARANTINE PERIOD. Kindly consult a medical doctor through an accredited MEDICARD facility and secure a BHERT Certification from your Barangay. This information is also sent to your immediate supervisor. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212 or through email: hrod@semirarampc.com
+                        </p>
+                    </text>
+
+
+
+                }
+                else
+                {
+                    <text>Dear </text> @ViewBag.EmployeeName <text>,
+
+                        <br />
+                        <br />
+                        <p>Thank you for honestly completing the Daily Health Monitoring Tool.</p>
+                        <p>
+                            Your results show that you have HIGH condition/exposure. YOU ARE NOT ALLOWED TO REPORT TO WORK FOR 14 DAYS.  Please STAY AT HOME AND UNDERGO THE MANDATORY 14-DAY QUARANTINE PERIOD. Kindly consult a medical doctor through an accredited MEDICARD facility and secure a BHERT Certification from your Barangay. This information is also sent to your immediate supervisor. For questions, please get in touch with HR Jonathan at 09985974855 /HR Cha at 09197989212  or through email: hrod@semirarampc.com
+                    </text>
+
+
+                }
+
+            }
+
+
+
+
+
+
+
+                            <div class="col-md-12 row">
+
+                                <canvas id="qr"></canvas>
+
+
+
+
+                            </div>
+
+
+
+
+</div>
+<div class="col-md-12 row">
+    <div class="col-md-6" style="text-align:left;">
+        <a href="@Url.Action("Index","Home")">Go Back to Main Page</a>
+    </div>
+
+    <div class="col-md-6" style="text-align:right;">
+        @*<strong>  @DateTime.Now.ToLocalTime()</strong>*@
+        <strong>@ViewBag.ScreenDateTime</strong>
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script src="~/js/core/jquery.min.js"></script>
+<script src="~/js/plugins/qrious.js"></script>
+
+
+
+
+<script>
+
+
+
+    $(function () {
+
+
+
+
+        var dt = moment('@ViewBag.ScreenDateTime').format("MMDDYYYYHHmmss");
+        var quar = 0;
+        if (@ViewBag.QuarantineCounter < 1) {
+            quar = '0'
+        } else {
+            quar = '1'
+        }
+
+       
+
+        var qr = new QRious({
+            element: document.getElementById('qr'),
+            @*value: 'https://www.semirarampc.com:8443/ScreeningTool/Home/Verification?id=' + '@ViewBag.QRKey'*@
+             value: '@ViewBag.ScreenLogId-' + dt + '-@ViewBag.TotalScore-' + '@ViewBag.EmployeeNo-'+ quar
+
+        })
+
+        $.post("@Url.Action("SendFinalNotification", "Home")",
+            { EmployeeName: '@ViewBag.EmployeeName'
+            , TotalScore: @ViewBag.TotalScore
+            , Remarks: '@ViewBag.Remarks'
+            , Encoder: '@ViewBag.Encoder'
+            , ScreenLogId: '@ViewBag.ScreenLogId'
+            , DepartmentId: @ViewBag.DepartmentId }
+            ,function(data, status){
+            console.log(data);
+            }
+        );
+
+
+
+
+    });
+</script>
+
+
+

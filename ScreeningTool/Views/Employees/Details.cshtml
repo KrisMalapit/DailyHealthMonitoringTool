@@ -1,0 +1,95 @@
+﻿@model ScreeningTool.Models.Employee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-text">
+                    <h4 class="card-title">Employee</h4>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EmployeeId)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EmployeeId)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactPerson)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactPerson)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactPersonNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactPersonNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.City)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.City)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Barangay)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Barangay)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Age)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Age)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Departments)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Departments.Id)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>

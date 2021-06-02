@@ -1,0 +1,150 @@
+﻿@model ScreeningTool.Models.ScreenLogs
+
+@{
+    ViewData["Title"] = "Verification";
+}
+<style>
+
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon" style="text-align:center;">
+                <div class="card-text">
+                    <h4 class="card-title">Employee Verification</h4>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="about">
+
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <div class="picture-container">
+                                    <div class="picture" style="text-align:center;padding-top:10%!important;">
+                                        <img src="~/assets/employees/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">face</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group bmd-form-group" style="width:80%!important;">
+                                        <label for="exampleInput1">Employee Name</label>
+                                        <h3>@Model.FirstName @Model.LastName</h3>  
+                                    </div>
+                                </div>
+                                
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">search</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group bmd-form-group" style="width:80%!important;">
+                                        <label>City/Municipality</label>
+                                        <h3>@Model.City</h3>
+                                    </div>
+                                </div>
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">ac_unit</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group bmd-form-group" style="width:80%!important;">
+                                        <label>Temperature</label>
+                                        <h3>@Model.Temperature</h3>
+                                    </div>
+                                </div>
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">date_range</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group bmd-form-group" style="width:80%!important;">
+                                        <label>Date / Time Registered</label>
+                                        <h3>@Model.CreatedAt</h3>
+                                    </div>
+                                </div>
+                                <div class="input-group form-control-lg">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="material-icons">opacity</i>
+                                        </span>
+                                    </div>
+                                    <div class="form-group bmd-form-group" style="width:80%!important;">
+                                        <label>STATUS</label>
+                                        <h2 id="entrystatus">@Model.EntryStatus</h2>
+                                        @*<input type="text" class="form-control" id="CreatedAt" name="Date" required="" aria-required="true" value="@Model.EntryStatus" disabled>*@
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div style="text-align:center!important;" class="form-group">
+                <button class="btn btn-success" id="btnUpdate">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/core/jquery.min.js"></script>
+<script>
+    $(function () {
+
+        if ('@Model.EntryStatus' == 'Pending') {
+           $('#btnUpdate').prop('disabled', false)
+        } else {
+             $('#btnUpdate').prop('disabled', true)
+        }
+    })
+    $("#btnUpdate").click(function () {
+        $.get("@Url.Action("AcceptEntry", "Home")",
+            {
+                  QRKey: '@Model.QRKey'
+                ,ScreenLogId: @Model.Id
+            }
+            ,function(data, status){
+                if (data.status == "success") {
+                    $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Success</b> User allowed!"
+
+                                },
+                                    {
+                                        type: "success",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                 });
+
+                     $("#entrystatus").html("Claimed");
+                     $('#btnUpdate').prop('disabled', true)
+
+                    //location.reload(); 
+                } else {
+                    alert("failed");
+                }
+            }
+        );
+            
+    })
+</script>
