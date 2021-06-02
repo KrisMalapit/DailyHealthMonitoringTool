@@ -349,7 +349,7 @@ namespace ScreeningTool.Controllers
             rem += temp > 37.5 ? "HIGH TEMPERATURE," : ""; ;
 
 
-            int i = 0;
+            
 
             if (rem.Trim() != "")
             {
