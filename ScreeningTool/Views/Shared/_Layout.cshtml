@@ -107,7 +107,9 @@
                         </div>
                         <div class="form-group" id="filterLevel">
                             <label class="col-form-label">Category</label>
-                            <select id="LevelId" name="LevelId" class="selectpicker col-md-12" data-style="select-with-transition" multiple="" title="ALL" asp-items="ViewBag.Levels"></select>
+                            <select id="LevelId" name="LevelId" class="selectpicker col-md-12" data-style="select-with-transition" multiple="" title="ALL" asp-items="ViewBag.Levels">
+
+                            </select>
                         </div>
                         <div class="form-group" id="filterType">
                             <label class="col-form-label">Type</label>
@@ -117,20 +119,7 @@
                                 <option value="2">Non-Employee</option>
                             </select>
                         </div>
-                        @*<div class="form-group" id="filterEmployeeName">
-            <label class="col-form-label">Employee Name</label>
-
-            <select id="EmployeeName" name="EmployeeName" class="selectpicker col-md-12" data-style="select-with-transition" multiple="" title="ALL" asp-items="ViewBag.Employees"></select>
-        </div>
-        <div class="form-group" id="filterEmployeeType">
-            <label class="col-form-label">Employee Type</label>
-            <select class="selectpicker col-md-12" id="EmployeeType" name="EmployeeType" data-style="select-with-transition">
-
-                <option value="0">All</option>
-                <option value="1">Swiping</option>
-                <option value="2">Non-Swiping</option>
-            </select>
-        </div>*@
+                        
                     </form>
 
                 </div>

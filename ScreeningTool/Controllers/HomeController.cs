@@ -164,9 +164,20 @@ namespace ScreeningTool.Controllers
             var data = _context.QurantineDetectors.Where(a => a.EmployeeId == EmployeeId).FirstOrDefault();
             if (data != null)
             {
+                //temporary disabled 09052021
                 data.DateQuaratineSet = DateTime.Now.Date;
                 _context.Entry(data).State = EntityState.Modified;
                 _context.SaveChanges();
+                Logs log = new Logs
+                {
+                    Action = "Modify",
+                    Description = "Modified Quarantine.  ScreenLog ID  : " + ScreenLogId,
+                    Status = "Success",
+                    CreatedDate = DateTime.Now
+                };
+                _context.Logs.Add(log);
+                _context.SaveChanges();
+
             }
             else
             {
@@ -176,15 +187,21 @@ namespace ScreeningTool.Controllers
                 _context.Add(qd);
                 _context.SaveChanges();
 
+                Logs log = new Logs
+                {
+                    Action = "Add",
+                    Description = "Add new Quarantine. ScreenLog ID : " + ScreenLogId,
+                    Status = "Success",
+                    CreatedDate = DateTime.Now
+                };
+                _context.Logs.Add(log);
+                _context.SaveChanges();
+
+
             }
 
-            Logs log = new Logs();
-            log.Action = "Add";
-            log.Description = "Add new Quarantine. ScreenLog ID : " + ScreenLogId;
-            log.Status = "Success";
-            log.CreatedDate = DateTime.Now;
-            _context.Logs.Add(log);
-            _context.SaveChanges();
+
+           
 
 
         }
@@ -467,6 +484,14 @@ namespace ScreeningTool.Controllers
             int id = 0;
             int departmentid = 0;
             string pickup = "";
+
+            int?vaccinated = 0;
+            DateTime firstdose = new DateTime();
+            DateTime seconddose = new DateTime();
+
+
+
+
             DateTime bday = new DateTime();
 
             try
@@ -498,6 +523,11 @@ namespace ScreeningTool.Controllers
                     departmentid = employee.DepartmentId;
                     pickup = employee.PickUpPoint;
                     bday = employee.Birthday;
+
+                    vaccinated = employee.Vaccinated;
+                    firstdose = employee.FirstDose;
+                    seconddose = employee.SecondDose;
+
                 }
                 else
                 {
@@ -531,8 +561,12 @@ namespace ScreeningTool.Controllers
                 id,
                 departmentid,
                 pickup,
-                bday
-            };
+                bday,
+                vaccinated,
+            firstdose,
+            seconddose
+
+        };
 
 
             return Json(result);

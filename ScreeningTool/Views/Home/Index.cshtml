@@ -181,7 +181,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInput11" class="bmd-label-floating">Age</label>
-                                            <input type="text" class="form-control" id="Age" name="Age" >
+                                            <input type="text" class="form-control" id="Age" name="Age">
                                         </div>
                                     </div>
                                     <div class="input-group form-control-lg" hidden>
@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInput11" class="bmd-label-floating">Birthday</label>
-                                            <input type="text" class="form-control datepicker" id="Birthday" name="Birthday" >
+                                            <input type="text" class="form-control datepicker" id="Birthday" name="Birthday">
                                         </div>
                                     </div>
                                     <div class="input-group form-control-lg">
@@ -250,7 +250,9 @@
                                             <input type="text" class="form-control" id="Barangay" name="Barangay" required>
                                         </div>
                                     </div>
-                                    <div class="input-group form-control-lg">
+
+
+                                    @*<div class="input-group form-control-lg">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="material-icons">airport_shuttle</i>
@@ -260,9 +262,37 @@
                                             <label for="exampleInput11" class="bmd-label-floating">Pick Up Point</label>
                                             <input type="text" class="form-control" id="PickUpPoint" name="PickUpPoint">
                                         </div>
+                                    </div>*@
+
+                                    <div class="input-group form-control-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="material-icons">event</i>
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInput11" class="bmd-label-floating">Vaccinated?</label>
+                                            <div>
+                                                <select id="Vaccinated" name="Vaccinated" class="selectpicker" data-style="select-with-transition" required>
+                                                    <option value="">Please select</option>
+                                                    <option value="0">NO</option>
+                                                    <option value="1">YES</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="frmDose" style="padding-left:50px;" hidden>
+
+                                            <div class="form-group">
+                                                <label>1st dose (Date)</label>
+                                                <input type="text" class="form-control datepicker" id="FirstDose" name="FirstDose">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>2nd dose (Date)</label>
+                                                <input type="text" class="form-control datepicker" id="SecondDose" name="SecondDose">
+                                            </div>
+                                        </div>
                                     </div>
-
-
 
                                     <div class="input-group form-control-lg">
                                         <div class="input-group-prepend">
@@ -641,6 +671,19 @@
 <script src="~/js/plugins/moment.min.js"></script>
 <script src="~/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script>
+    $("#Vaccinated").change(function () {
+        if (this.value == 1) {
+            
+            $("#frmDose").removeAttr("hidden")
+            $("#FirstDose").attr("required", true)
+        } else {
+            $("#frmDose").attr("hidden", true)
+            
+            $("#FirstDose").removeAttr("required");
+        }
+
+        
+    });
        $("input[type=text]").keyup(function () {
             $(this).val($(this).val().toUpperCase());
         });
@@ -726,6 +769,29 @@
                                 $('#DepartmentId').val(responsedata.departmentid);
                                 $('#PickUpPoint').val(responsedata.pickup);
                                 $('#Birthday').val(moment(responsedata.bday).format("MM/DD/YYYY"));
+
+
+                                $fdose = responsedata.firstdose == '0001-01-01T00:00:00' ? "" : moment(responsedata.firstdose).format("MM/DD/YYYY")
+                                $sdose = responsedata.seconddose == '0001-01-01T00:00:00' ? "" : moment(responsedata.seconddose).format("MM/DD/YYYY")
+                                $('#Vaccinated').val(responsedata.vaccinated).change();
+                                if (responsedata.vaccinated == 1) {
+                                    $("#frmDose").removeAttr("hidden")
+                                    $("#FirstDose").attr("required", true)
+                                } else {
+                                    $("#frmDose").attr("hidden", true)
+
+                                    $("#FirstDose").removeAttr("required");
+                                }
+
+                                
+
+
+
+                                $('#FirstDose').val($fdose);
+                                $('#SecondDose').val($sdose);
+
+
+
                             } else {
                                 clearDetails();
                                 $.notify({

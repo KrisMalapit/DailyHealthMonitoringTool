@@ -23,7 +23,7 @@ namespace ScreeningTool.Models
         public int DepartmentId { get; set; }
         public virtual Department Departments { get; set; }
         public string PickUpPoint { get; set; }
-        public int Vaccinated { get; set; }
+        public int? Vaccinated { get; set; } = 0;
         public DateTime FirstDose { get; set; }
         public DateTime SecondDose { get; set; }
         public DateTime Birthday { get; set; }
