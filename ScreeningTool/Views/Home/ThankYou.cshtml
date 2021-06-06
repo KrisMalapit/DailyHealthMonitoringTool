@@ -232,13 +232,16 @@
 
         var qr = new QRious({
             element: document.getElementById('qr'),
-            @*value: 'https://www.semirarampc.com:8443/ScreeningTool/Home/Verification?id=' + '@ViewBag.QRKey'*@
+          
              value: '@ViewBag.ScreenLogId-' + dt + '-@ViewBag.TotalScore-' + '@ViewBag.EmployeeNo-'+ quar
 
         })
 
+
+
         $.post("@Url.Action("SendFinalNotification", "Home")",
-            { EmployeeName: '@ViewBag.EmployeeName'
+            {
+              EmployeeName: '@ViewBag.EmployeeName'
             , TotalScore: @ViewBag.TotalScore
             , Remarks: '@ViewBag.Remarks'
             , Encoder: '@ViewBag.Encoder'

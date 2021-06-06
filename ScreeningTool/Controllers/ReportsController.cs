@@ -25,10 +25,10 @@ namespace ScreeningTool.Controllers
 
 
                 string urilive = "http://californium/ScreeningToolAPI/api/printreport?rvm=";
-                string uridev = "https://localhost:44301/api/printreport?rvm=";
+                string uridev = "http://aluminum/ScreeningToolAPI/api/printreport?rvm=";
+                string urilocal = "https://localhost:44301/api/printreport?rvm=";
 
-
-                response = client.GetAsync(urilive + xstring).Result;
+                response = client.GetAsync(urilocal + xstring).Result;
                 string byteToString = response.Content.ReadAsStringAsync().Result.Replace("\"", string.Empty);
                 bytes = Convert.FromBase64String(byteToString);
 
