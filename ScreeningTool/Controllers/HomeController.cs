@@ -433,10 +433,10 @@ namespace ScreeningTool.Controllers
             {
                 var emp = _context.QurantineDetectors.Where(a => a.EmployeeId == EmployeeId).ToList();
 
-                if (emp == null)
+                if (emp.Count()== 0 || emp == null)
                 {
                     status = "fail";
-                    message = "No record found in Quarantine Table";
+                    message = "No record found in Quarantine Table for Employee Id " + EmployeeId;
 
                 }
                 else
