@@ -27,6 +27,7 @@ namespace ScreeningTool.Models
         public DateTime FirstDose { get; set; }
         public DateTime SecondDose { get; set; }
         public DateTime Birthday { get; set; }
+        public string Email { get; set; }
 
     }
 }
