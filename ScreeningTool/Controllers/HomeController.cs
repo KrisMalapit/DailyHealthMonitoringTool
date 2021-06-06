@@ -164,7 +164,7 @@ namespace ScreeningTool.Controllers
             var data = _context.QurantineDetectors.Where(a => a.EmployeeId == EmployeeId).FirstOrDefault();
             if (data != null)
             {
-                //temporary disabled 09052021
+               
                 data.DateQuaratineSet = DateTime.Now.Date;
                 _context.Entry(data).State = EntityState.Modified;
                 _context.SaveChanges();
@@ -424,7 +424,61 @@ namespace ScreeningTool.Controllers
 
             return Json(result);
         }
-        public JsonResult UpdateEmpDetails(Employee emp)
+        public JsonResult UpdateQuarantineStatus(string EmployeeId,string Remarks)
+        {
+            string status = "";
+            string message = "";
+
+            try
+            {
+                var emp = _context.QurantineDetectors.Where(a => a.EmployeeId == EmployeeId).ToList();
+
+                if (emp == null)
+                {
+                    status = "fail";
+                    message = "No record found in Quarantine Table";
+
+                }
+                else
+                {
+                    emp.ForEach(a => {
+                        a.DateQuaratineSet = new DateTime(1900, 1, 1);
+                        a.Remarks = Remarks;
+                    } );
+
+                
+                    message = "Modify Quarantine. EmployeeId : " + EmployeeId;
+                    status = "success";
+                }
+
+                Logs log = new Logs();
+                log.Action = "Modify";
+                log.Description = message;
+                log.Status = status;
+                _context.Logs.Add(log);
+                _context.SaveChanges();
+
+
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+                status = "fail";
+            }
+         
+            var model = new
+            {
+              
+                status,
+                message
+            };
+
+
+            return Json(model);
+
+        }
+
+            public JsonResult UpdateEmpDetails(Employee emp)
         {
             string status = "";
             string message = "";

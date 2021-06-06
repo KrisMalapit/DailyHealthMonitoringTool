@@ -86,6 +86,43 @@
 
 <body class="sidebar-mini">
 
+    <div class="modal fade" id="modalReset" lass="modal hide" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Quaratine Status</h5>
+
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="frmReset" class="form_class">
+                        <input hidden id="report" name="Report" />
+                        <div class="form-group">
+                            <label class="col-form-label">Employee ID</label> &nbsp;
+                            <input id="txtEmployeeId" name="EmployeeId" onfocusout="verifyEmployeeIds(this)" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group" id="todate">
+                            <label class="col-form-label">Employee Name</label> &nbsp;
+                            <input id="txtEmployeeName" name="EmployeeName" type="text" class="form-control" disabled>
+                        </div>
+                        <div class="form-group" id="todate">
+                            <label class="col-form-label">Remarks</label> &nbsp;
+                            <input id="txtRemarks" name="Remarks" type="text" class="form-control">
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> &nbsp;
+                    <button type="button" class="btn btn-default" id="btnReset">Save</button> &nbsp;
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" id="myModalRange" lass="modal hide" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -212,7 +249,12 @@
                                             <span class="sidebar-normal">Screening Logs </span>
                                         </a>
                                     </li>
-
+                                    <li class="nav-item ">
+                                        <a data-target="#modalReset" data-toggle="modal" href="#modalReset" class="nav-link" id="aReset">
+                                            <span class="sidebar-mini"> RQ </span>
+                                            <span class="sidebar-normal">Reset Quarantine Status </span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -552,8 +594,146 @@
             $("#loadingScreen").fadeIn();
         }).ajaxStop(function () {
             $("#loadingScreen").fadeOut();
-        });
+            });
 
+function verifyEmployeeIds(v) {
+        if ($(v).val() == "") {
+            $("#txtEmployeeName").val("");
+            return false;
+        }
+        //return false;
+         $.ajax({
+                    url: "@Url.Action("GetEmpDetails","Home")"
+                    , method: "POST"
+                    , data: {EmpId : $(v).val()}
+                    , dataType: 'json'
+                    , success: function (responsedata) {
+                        console.log(responsedata);
+                        if (responsedata.status == "success") {
+                            
+                            if (responsedata.hasValue == "true") {
+                               
+                                $("#txtEmployeeName").val(responsedata.empfname + " " + responsedata.emplastname) ;
+                               
+
+
+                            } else {
+                                $("#txtEmployeeName").val("");
+                                $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + "No record found for the particular employees"
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                            }
+
+
+                        } else {
+                            $("#txtEmployeeName").val("");
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + responsedata.message
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                        }
+                    }
+                })
+        }
+        $("#aReset").click(function () {
+            $('#modalDataPrivacy').modal('hide');
+        })
+        $("#btnReset").click(function () {
+            if ($('#txtEmployeeName').val() == "") {
+                $.notify({
+                    icon: "add_alert",
+                    message: "<b>Fail</b> - " + "No record found for the particular employee"
+                },
+                    {
+                        type: "danger",
+                        timer: 1000,
+                        placement: {
+                            from: "top",
+                            align: "center"
+                        }
+                    });
+                return false;
+            }
+            if ($('#txtRemarks').val() == "") {
+                $.notify({
+                    icon: "add_alert",
+                    message: "<b>Fail</b> - " + "Fill Remarks"
+                },
+                    {
+                        type: "danger",
+                        timer: 1000,
+                        placement: {
+                            from: "top",
+                            align: "center"
+                        }
+                    });
+                return false;
+            }
+
+             $.ajax({
+                    url: "@Url.Action("UpdateQuarantineStatus","Home")"
+                    , method: "POST"
+                    , data: { EmployeeId: $("#txtEmployeeId").val(), Remarks: $("#txtRemarks").val()}
+                    , dataType: 'json'
+                    , success: function (responsedata) {
+
+                        if (responsedata.status == "success") {
+
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Success</b> Quarantine updated!"
+
+                                },
+                                    {
+                                        type: "success",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                 });
+                         
+                           //$("#modalUpdate").modal('hide');
+
+
+                        } else {
+                             $.notify({
+                                    icon: "add_alert",
+                                    message: "<b>Fail</b> - " + responsedata.message
+
+                                },
+                                    {
+                                        type: "danger",
+                                        timer: 1000,
+                                        placement: {
+                                            from: "top",
+                                            align: "center"
+                                        }
+                                    });
+                        }
+                    }
+                })
+
+        })
          function modalHereRange() {
             $rptType = "rptScreeningSummary";
             $('#report').val($rptType);

@@ -11,6 +11,7 @@ namespace ScreeningTool.Models
         public string EmployeeId { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateQuaratineSet { get; set; }
-       
+        public string Remarks { get; set; }
+
     }
 }
