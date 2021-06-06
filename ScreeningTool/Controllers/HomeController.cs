@@ -436,7 +436,7 @@ namespace ScreeningTool.Controllers
                 if (emp.Count() == 0 || emp == null)
                 {
                     status = "fail";
-                    message = "No record found in Quarantine Table";
+                    message = "No record found in Quarantine Table for EmployeeId " + EmployeeId;
 
                 }
                 else
