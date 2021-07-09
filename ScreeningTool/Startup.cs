@@ -38,7 +38,7 @@ namespace ScreeningTool
 
 
             services.AddDbContext<ScreeningToolContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ScreeningToolContextLive")
+            options.UseSqlServer(Configuration.GetConnectionString("ScreeningToolContextDev")
             , builder => builder.UseRowNumberForPaging() //add this for Incorrect syntax near 'OFFSET'. Invalid usage of the option NEXT in the FETCH statement
             ));
 

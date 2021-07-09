@@ -65,7 +65,7 @@ namespace ScreeningTool.Controllers
             string remarks = "";
             string empno = "";
             int deptId = 0;
-            //Thread.Sleep(5000);
+            
 
             try
             {
@@ -133,7 +133,7 @@ namespace ScreeningTool.Controllers
                 Encoder,
                 ScreenLogId = sclogs.Id,
                 employeeNo = sclogs.EmployeeId,
-                QRKey = sclogs.QRKey,
+                sclogs.QRKey,
                 ScreenDateTime = DateTime.Now
             };
 
@@ -181,9 +181,11 @@ namespace ScreeningTool.Controllers
             }
             else
             {
-                QurantineDetector qd = new QurantineDetector();
-                qd.EmployeeId = EmployeeId;
-                qd.DateQuaratineSet = DateTime.Now.Date;
+                QurantineDetector qd = new QurantineDetector
+                {
+                    EmployeeId = EmployeeId,
+                    DateQuaratineSet = DateTime.Now.Date
+                };
                 _context.Add(qd);
                 _context.SaveChanges();
 
