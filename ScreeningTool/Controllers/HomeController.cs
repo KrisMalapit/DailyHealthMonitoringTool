@@ -25,7 +25,7 @@ namespace ScreeningTool.Controllers
         private string[] phonenumber;
         private string[] emailaddress;
 
-
+        public int Server = 0;
 
         private readonly ScreeningToolContext _context;
 
@@ -219,7 +219,7 @@ namespace ScreeningTool.Controllers
 
             try
             {
-                if (nvm.TotalScore >= 2)
+                if (nvm.TotalScore >= 4)
                 {
                     if (nvm.Encoder == "employee")
                     {
@@ -307,28 +307,28 @@ namespace ScreeningTool.Controllers
 
 
             int q1 = ts.Q1 == 1 ? 1 : 0;
-            int q2 = ts.Q2 == 1 ? 2 : 0;
-            int q3 = ts.Q3 == 1 ? 2 : 0;
-            int q4 = ts.Q4 == 1 ? 2 : 0;
-            int q5 = ts.Q5 == 1 ? 2 : 0;
-            int q6 = ts.Q6 == 1 ? 2 : 0;
-            int q7 = ts.Q7 == 1 ? 2 : 0;
-            int q8 = ts.Q8 == 1 ? 2 : 0;
-            int q9 = ts.Q9 == 1 ? 2 : 0;
+            int q2 = ts.Q2 == 1 ? 4 : 0;
+            int q3 = ts.Q3 == 1 ? 4 : 0;
+            int q4 = ts.Q4 == 1 ? 4 : 0;
+            int q5 = ts.Q5 == 1 ? 4 : 0;
+            int q6 = ts.Q6 == 1 ? 4 : 0;
+            int q7 = ts.Q7 == 1 ? 4 : 0;
+            int q8 = ts.Q8 == 1 ? 4 : 0;
+            int q9 = ts.Q9 == 1 ? 4 : 0;
             int q10 = ts.Q10 == 1 ? 4 : 0;
             int q11 = ts.Q11 == 1 ? 4 : 0;
-            int q12 = ts.Q12 == 1 ? 2 : 0;
-            int q13 = ts.Q13 == 1 ? 2 : 0;
-            int q14 = ts.Q14 == 1 ? 2 : 0;
-            int q15 = ts.Q15 == 1 ? 2 : 0;
-
-            int q16 = ts.Q16 == 1 ? 2 : 0;
-            int q17 = ts.Q17 == 1 ? 1 : 0;
+            int q12 = ts.Q12 == 1 ? 4 : 0;
+            int q13 = ts.Q13 == 1 ? 4 : 0;
+            int q14 = ts.Q14 == 1 ? 4 : 0;
+            int q15 = ts.Q15 == 1 ? 4 : 0;
+            int q16 = ts.Q16 == 1 ? 1 : 0;
+            int q17 = ts.Q17 == 1 ? 4 : 0;
             int q18 = ts.Q18 == 1 ? 1 : 0;
-            int q19 = ts.Q19 == 1 ? 2 : 0;
-            int q20 = ts.Q20 == 1 ? 2 : 0;
+            int q19 = ts.Q19 == 1 ? 4 : 0;
+            int q20 = ts.Q20 == 1 ? 1 : 0;
+            int q21 = ts.Q21 == 1 ? 4 : 0;
 
-            int res = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20;
+            int res = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21;
             var temp = Convert.ToDouble(ts.Temperature);
             if (temp > 37.5)
             {
@@ -355,15 +355,18 @@ namespace ScreeningTool.Controllers
             rem += ts.Q10 == 1 ? "LIVING IN A Household WITH A PUI or CONFIRMED COVID-19 Case," : "";
             rem += ts.Q11 == 1 ? "DIRECT-CONTACT," : "";
             rem += ts.Q12 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case EXPERIENCING ANY OF THE SYMPTOMS," : "";
-            rem += ts.Q13 == 1 ? "SICK for a day or two," : "";
-            rem += ts.Q14 == 1 ? "LOST sense of taste and smell," : "";
-            rem += ts.Q15 == 1 ? "EXPERIENCED difficulty of breathing or easy fatiguability for a day or more," : "";
 
-            rem += ts.Q16 == 1 ? "Notified to undergo quarantine period," : "";
-            rem += ts.Q17 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case w-o ANY OF THE SYMPTOMS," : "";
-            rem += ts.Q18 == 1 ? "Visit the hospital/clinic in the last 14 days," : "";
-            rem += ts.Q19 == 1 ? "Consulted/Seen a doctor in the last 14 days," : "";
-            rem += ts.Q20 == 1 ? "FEVER," : "";
+            rem += ts.Q13 == 1 ? "LOST sense of taste and smell," : "";
+            rem += ts.Q14 == 1 ? "HAS SYMPTOMPS for MORE THAN 1 DAY," : "";
+            //rem += ts.Q15 == 1 ? "EXPERIENCED difficulty of breathing or easy fatiguability for a day or more," : "";
+
+            rem += ts.Q15 == 1 ? "Notified to undergo quarantine period," : "";
+            rem += ts.Q16 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case w-o ANY OF THE SYMPTOMS," : "";
+            rem += ts.Q17 == 1 ? "Visit the hospital/clinic in the last 14 days with symptoms," : "";
+            rem += ts.Q18 == 1 ? "Consulted/Visit a doctor in the last 14 days," : "";
+            rem += ts.Q19 == 1 ? "FEVER," : "";
+            rem += ts.Q20 == 1 ? "Waiting RT-PCR," : "";
+            rem += ts.Q21 == 1 ? "Positive covid-19 household," : "";
 
             rem += temp > 37.5 ? "HIGH TEMPERATURE," : ""; ;
 
@@ -703,23 +706,19 @@ namespace ScreeningTool.Controllers
         }
         public string SendNotification(string empName, string remarks, int totalScore, int deptId, int screenlog_id)
         {
-
             string status = "";
             Task<string> task = SetDepartmentHeadDetails(deptId, screenlog_id);
             task.Wait();
-            //var x = task.Result;
-
-
             try
             {
-                //var x = phonenumber;
-                string smsResult = SendSMS("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast" + Environment.NewLine + Environment.NewLine + empName + " has a total score of " + totalScore
+                string st = "";
+                if (Server == 0)
+                {
+                    st = " - TEST ONLY";
+                }
+                string smsResult = SendSMS("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast" + st + Environment.NewLine + Environment.NewLine + empName + " has a total score of " + totalScore
                                                               + Environment.NewLine + "Remarks:" + Environment.NewLine + remarks, screenlog_id);
-
-                //string emailResult = SendEmail("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast " + Environment.NewLine + Environment.NewLine + empName + " has a total score of " + totalScore
-                //                + Environment.NewLine + " Remarks:" + Environment.NewLine + remarks, screenlog_id, "Employee");
-
-                status = SendEmail("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast <br /><br />" + empName + " has a total score of " + totalScore
+                status = SendEmail("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast" + st + " <br /><br />" + empName + " has a total score of " + totalScore
                                + "<br /> Remarks: <br />" + remarks + ". <br /><br />", screenlog_id, "Employee");
                 status = "success";
             }
@@ -729,7 +728,6 @@ namespace ScreeningTool.Controllers
 
             }
             return status;
-
         }
         [HttpPost]
         public string SendSMS(string msg, int screenid)
@@ -738,7 +736,8 @@ namespace ScreeningTool.Controllers
             SMSArray res = new SMSArray();
             try
             {
-
+                
+               
                 var sms = new
                 {
                     message = msg,
