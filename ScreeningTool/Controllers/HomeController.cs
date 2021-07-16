@@ -357,7 +357,7 @@ namespace ScreeningTool.Controllers
             rem += ts.Q12 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case EXPERIENCING ANY OF THE SYMPTOMS," : "";
             rem += ts.Q13 == 1 ? "SICK for a day or two," : "";
             rem += ts.Q14 == 1 ? "LOST sense of taste and smell," : "";
-            rem += ts.Q15 == 1 ? "EXPERIENCED difficulty of breathing or easy fatiguability for a day or more," : "";
+            rem += ts.Q15 == 1 ? "Have experienced ANY 2 OF THE SYMPTOMS mentioned ABOVE," : "";
 
             rem += ts.Q16 == 1 ? "Notified to undergo quarantine period," : "";
             rem += ts.Q17 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case w-o ANY OF THE SYMPTOMS," : "";
