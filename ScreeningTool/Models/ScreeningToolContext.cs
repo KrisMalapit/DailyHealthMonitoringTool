@@ -25,6 +25,8 @@ namespace ScreeningTool.Models
         public DbSet<DepartmentHead> DepartmentHeads { get; set; }
         public DbSet<QREntry> QREntry { get; set; }
         public DbSet<QurantineDetector> QurantineDetectors { get; set; }
+        public DbSet<NoDHMCounter> NoDHMCounters { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<User>()

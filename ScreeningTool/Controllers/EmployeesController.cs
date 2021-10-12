@@ -26,7 +26,11 @@ namespace ScreeningTool.Controllers
             var screeningToolContext = _context.Employees.Include(e => e.Departments);
             return View(await screeningToolContext.ToListAsync());
         }
-
+        public async Task<IActionResult> NoDHM()
+        {
+            
+            return View();
+        }
 
         public IActionResult getData(string type)
         {
@@ -63,7 +67,117 @@ namespace ScreeningTool.Controllers
             };
             return Json(model);
         }
+        public IActionResult getDataNoDHM()
+        {
+            DateTime dt = new DateTime(1, 1, 1);
+            string status = "";
 
+            var v = _context.NoDHMCounters
+                
+                .GroupJoin(
+                       _context.Employees // B
+                       .Where(a => a.Status == "Active"),
+                       i => i.EmployeeId, //A key
+                       p => p.EmployeeId,//B key
+                       (i, g) =>
+                          new
+                          {
+                              i, //holds A data
+                              g  //holds B data
+                          }
+                    ).SelectMany(
+                       temp => temp.g.DefaultIfEmpty(), //gets data and transfer to B
+                       (A, B) =>
+                          new
+                          {
+                              A.i.EmployeeId,
+                              EmployeeName = B.LastName + ", " + B.FirstName,
+                              A.i.Counter
+                              ,A.i.ID
+                          }
+                    );
+
+            //var v =
+
+            //    _context.Employees.Select(a => new
+            //    {
+            //        a.Id
+            //        ,
+            //        a.EmployeeId,
+
+            //        EmployeeName = a.LastName + ", " + a.FirstName,
+
+            //        a.ContactNo,
+
+            //        Department = a.Departments.Name,
+
+            //        a.Status
+            //        ,
+            //        Type = a.Organic == 1 ? "Organic" : "In-Organic"
+
+
+            //    });
+
+            status = "success";
+            var model = new
+            {
+                status
+                ,
+                data = v.ToList(),
+
+
+            };
+            return Json(model);
+        }
+        public JsonResult UpdateCounter(int Id)
+        {
+            string status = "";
+            string message = "";
+            var uid = User.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
+            int lastCount = 0;
+            try
+            {
+                var emp = _context.NoDHMCounters.Where(a => a.ID == Id).FirstOrDefault();
+                lastCount = emp.Counter;
+                emp.LastCounter = emp.Counter;
+                emp.Counter = 0;
+                emp.ResetDate = DateTime.Now;
+                emp.UpdatedDate = DateTime.Now.Date;
+               
+
+                _context.Update(emp);
+
+                message = "Reset No DHM. EmployeeId : " + emp.EmployeeId + ", Last Count :" + lastCount;
+                status = "success";
+                
+
+                Logs log = new Logs();
+                log.Action = "Modify";
+                log.Description = message;
+                log.Status = status;
+                log.UserId = Convert.ToInt32(uid);
+                _context.Logs.Add(log);
+                _context.SaveChanges();
+
+
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+                status = "fail";
+            }
+
+            var model = new
+            {
+
+                status,
+                message
+            };
+
+
+            return Json(model);
+
+        }
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
