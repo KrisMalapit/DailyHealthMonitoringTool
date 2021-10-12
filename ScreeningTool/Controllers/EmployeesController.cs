@@ -47,6 +47,7 @@ namespace ScreeningTool.Controllers
                     Department = a.Departments.Name,
 
                     a.Status
+                    ,Type = a.Organic == 1 ? "Organic" : "In-Organic"
 
            
                 });
@@ -140,8 +141,23 @@ namespace ScreeningTool.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
+                    var emp = _context.Employees.Find(id);
+                    emp.EmployeeId = employee.EmployeeId;
+                    emp.FirstName = employee.FirstName;
+                    emp.LastName = employee.LastName;
+                    emp.ContactNo = employee.ContactNo;
+                    emp.ContactPerson = employee.ContactPerson;
+                    emp.City = employee.City;
+                    emp.Barangay = employee.Barangay;
+                    emp.Status = employee.Status;
+                    emp.DepartmentId = employee.DepartmentId;
+                    emp.Birthday = employee.Birthday;
+                    //emp.Vaccinated = employee.Vaccinated;
+                   
+                    emp.Email = employee.Email;
+                    emp.Organic = employee.Organic;
+                    _context.Update(emp);
+                    //await _context.SaveChangesAsync();
 
 
                     Logs log = new Logs();

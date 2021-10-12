@@ -25,7 +25,7 @@ namespace ScreeningTool.Controllers
         private string[] phonenumber;
         private string[] emailaddress;
 
-        public int Server = 0;
+        public int Server = 1;
 
         private readonly ScreeningToolContext _context;
 
@@ -219,7 +219,7 @@ namespace ScreeningTool.Controllers
 
             try
             {
-                if (nvm.TotalScore >= 4)
+                if (nvm.TotalScore >= 5)
                 {
                     if (nvm.Encoder == "employee")
                     {
@@ -249,7 +249,7 @@ namespace ScreeningTool.Controllers
                             phonenumber = new string[7];
                             phonenumber[0] = "09957566792"; // madz
                             phonenumber[1] = "09197989212"; // charizza
-                            phonenumber[2] = "09985974855"; // jonathan
+                            phonenumber[2] = "09277043557"; // jonathan
                             phonenumber[3] = "09257061809"; // fides quintos
                             phonenumber[4] = "09173121719"; // joyce lagarde
                             phonenumber[5] = "09953668620"; // raph
@@ -307,26 +307,26 @@ namespace ScreeningTool.Controllers
 
 
             int q1 = ts.Q1 == 1 ? 1 : 0;
-            int q2 = ts.Q2 == 1 ? 4 : 0;
-            int q3 = ts.Q3 == 1 ? 4 : 0;
-            int q4 = ts.Q4 == 1 ? 4 : 0;
-            int q5 = ts.Q5 == 1 ? 4 : 0;
-            int q6 = ts.Q6 == 1 ? 4 : 0;
-            int q7 = ts.Q7 == 1 ? 4 : 0;
-            int q8 = ts.Q8 == 1 ? 4 : 0;
-            int q9 = ts.Q9 == 1 ? 4 : 0;
-            int q10 = ts.Q10 == 1 ? 4 : 0;
-            int q11 = ts.Q11 == 1 ? 4 : 0;
-            int q12 = ts.Q12 == 1 ? 4 : 0;
-            int q13 = ts.Q13 == 1 ? 4 : 0;
-            int q14 = ts.Q14 == 1 ? 4 : 0;
-            int q15 = ts.Q15 == 1 ? 4 : 0;
+            int q2 = ts.Q2 == 1 ? 5 : 0;
+            int q3 = ts.Q3 == 1 ? 5 : 0;
+            int q4 = ts.Q4 == 1 ? 5 : 0;
+            int q5 = ts.Q5 == 1 ? 5 : 0;
+            int q6 = ts.Q6 == 1 ? 5 : 0;
+            int q7 = ts.Q7 == 1 ? 5 : 0;
+            int q8 = ts.Q8 == 1 ? 5 : 0;
+            int q9 = ts.Q9 == 1 ? 5 : 0;
+            int q10 = ts.Q10 == 1 ? 5 : 0;
+            int q11 = ts.Q11 == 1 ? 5 : 0;
+            int q12 = ts.Q12 == 1 ? 5 : 0;
+            int q13 = ts.Q13 == 1 ? 5 : 0;
+            int q14 = ts.Q14 == 1 ? 5 : 0;
+            int q15 = ts.Q15 == 1 ? 5 : 0;
             int q16 = ts.Q16 == 1 ? 1 : 0;
-            int q17 = ts.Q17 == 1 ? 4 : 0;
+            int q17 = ts.Q17 == 1 ? 5 : 0;
             int q18 = ts.Q18 == 1 ? 1 : 0;
-            int q19 = ts.Q19 == 1 ? 4 : 0;
+            int q19 = ts.Q19 == 1 ? 5 : 0;
             int q20 = ts.Q20 == 1 ? 1 : 0;
-            int q21 = ts.Q21 == 1 ? 4 : 0;
+            int q21 = ts.Q21 == 1 ? 5 : 0;
 
             int res = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21;
             var temp = Convert.ToDouble(ts.Temperature);
@@ -361,9 +361,9 @@ namespace ScreeningTool.Controllers
             //rem += ts.Q15 == 1 ? "EXPERIENCED difficulty of breathing or easy fatiguability for a day or more," : "";
 
             rem += ts.Q15 == 1 ? "Notified to undergo quarantine period," : "";
-            rem += ts.Q16 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case w-o ANY OF THE SYMPTOMS," : "";
-            rem += ts.Q17 == 1 ? "Visit the hospital/clinic in the last 14 days with symptoms," : "";
-            rem += ts.Q18 == 1 ? "Consulted/Visit a doctor in the last 14 days," : "";
+            rem += ts.Q16 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case without ANY OF THE SYMPTOMS," : "";
+            rem += ts.Q17 == 1 ? "Visited the hospital in the last 14 days RELATED TO THE ABOVE SYMPTOMS," : "";
+            rem += ts.Q18 == 1 ? "Consulted/Visit a doctor in the last 14 days for OTHER Reasons," : "";
             rem += ts.Q19 == 1 ? "FEVER," : "";
             rem += ts.Q20 == 1 ? "Waiting RT-PCR," : "";
             rem += ts.Q21 == 1 ? "Positive covid-19 household," : "";
@@ -677,7 +677,7 @@ namespace ScreeningTool.Controllers
 
                 phonenumber[cnt] = "09957566792"; // madz
                 phonenumber[cnt + 1] = "09197989212"; // charizza
-                phonenumber[cnt + 2] = "09985974855"; // jonathan
+                phonenumber[cnt + 2] = "09277043557"; // jonathan
                 phonenumber[cnt + 3] = "09257061809"; // fides quintos
                 phonenumber[cnt + 4] = "09173121719"; // joyce lagarde
                 phonenumber[cnt + 5] = "09953668620"; // raph

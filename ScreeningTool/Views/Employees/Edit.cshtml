@@ -66,7 +66,8 @@
                         <input asp-for="Barangay" class="form-control " />
                         <span asp-validation-for="Barangay" class="text-danger "></span>
                     </div>
-                    <div class="form-group">
+
+                    <div class="form-group" hidden>
                         <label asp-for="PickUpPoint" class="control-label"></label>
                         <input asp-for="PickUpPoint" class="form-control" />
                         <span asp-validation-for="PickUpPoint" class="text-danger"></span>
@@ -86,6 +87,36 @@
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+                    @*<div class="form-group">
+                        <label for="exampleInput11" class="bmd-label-floating">Vaccinated?</label>
+
+                        <select name="Vaccinated" class="selectpicker col-md-12" data-style="select-with-transition" asp-for="Vaccinated">
+                            <option value="">Please select</option>
+                            <option value="0">NO</option>
+                            <option value="1">YES</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group" id="frmDose" style="padding-left:50px;" >
+
+                        <div class="form-group">
+                            <label>1st dose (Date)</label>
+                            <input type="text" class="form-control datepicker" id="FirstDose" name="FirstDose">
+                        </div>
+
+                        <div class="form-group">
+                            <label>2nd dose (Date)</label>
+                            <input type="text" class="form-control datepicker" id="SecondDose" name="SecondDose">
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label class="control-label">Type</label>
+                        <select name="Organic" class="selectpicker col-md-12" data-style="select-with-transition" asp-for="Organic">
+                            <option value="1">Organic</option>
+                            <option value="0">In-Organic</option>
+                        </select>
+                    </div>
+
                     <div class="form-group">
 
                         <label class="control-label">Status</label>
