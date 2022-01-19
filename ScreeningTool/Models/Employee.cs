@@ -26,6 +26,8 @@ namespace ScreeningTool.Models
         public int? Vaccinated { get; set; } = 0;
         public DateTime FirstDose { get; set; }
         public DateTime SecondDose { get; set; }
+        public DateTime Booster1 { get; set; }
+
         public DateTime Birthday { get; set; }
         public string Email { get; set; }
         public int Organic { get; set; }

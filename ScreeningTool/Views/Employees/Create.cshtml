@@ -75,12 +75,17 @@
             <input asp-for="Age" class="form-control" />
             <span asp-validation-for="Age" class="text-danger"></span>
         </div>*@
+                    @*<div class="form-group">
+            <label asp-for="Birthday" class="control-label"></label>
+            <input asp-for="Birthday" class="form-control datepicker" />
+            <span asp-validation-for="Birthday" class="text-danger"></span>
+        </div>*@
                     <div class="form-group">
                         <label asp-for="Birthday" class="control-label"></label>
-                        <input asp-for="Birthday" class="form-control datepicker" />
+                        @*<input asp-for="Birthday" class="form-control datepicker" />*@
+                        <input type="text" class="form-control datepicker" id="Birthday" name="Birthday">
                         <span asp-validation-for="Birthday" class="text-danger"></span>
                     </div>
-
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" />

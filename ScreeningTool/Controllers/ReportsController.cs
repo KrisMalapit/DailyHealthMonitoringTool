@@ -22,10 +22,8 @@ namespace ScreeningTool.Controllers
                 byte[] bytes = null;
                 string xstring = JsonConvert.SerializeObject(rvm);
 
-
-
                 string urilive = "http://californium/ScreeningToolAPI/api/printreport?rvm=";
-                string uridev = "http://aluminum/ScreeningToolAPI/api/printreport?rvm=";
+                string uridev = "http://sodium2/ScreeningToolAPI/api/printreport?rvm=";
                 string urilocal = "https://localhost:44301/api/printreport?rvm=";
 
                 response = client.GetAsync(urilive + xstring).Result;

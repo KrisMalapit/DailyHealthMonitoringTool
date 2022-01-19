@@ -495,10 +495,38 @@ namespace ScreeningTool.Controllers
                 var _empage = today.Year - emp.Birthday.Year;
                 if (emp.Birthday.Date > today.AddYears(-_empage)) _empage--;
 
-                age = _empage;
-                emp.Age = _empage;
-                _context.Update(emp);
+                //age = _empage;
+                //emp.Age = _empage;
+                //_context.Update(emp);
+                //_context.SaveChanges();
+
+
+                var vemp = _context.Employees.Where(a=>a.EmployeeId == emp.EmployeeId).Where(a=>a.Status == "Active").FirstOrDefault();
+                vemp.Age = _empage;
+                vemp.FirstDose = emp.FirstDose;
+                vemp.SecondDose = emp.SecondDose;
+                vemp.Booster1 = emp.Booster1;
+
+                vemp.Vaccinated = emp.Vaccinated;
+                vemp.ContactNo = emp.ContactNo;
+                vemp.ContactPerson = emp.ContactPerson;
+                vemp.ContactPersonNo = emp.ContactPersonNo;
+                vemp.City = emp.City;
+                vemp.Barangay = emp.Barangay;
+                //emp.Vaccinated = employee.Vaccinated;
+                //vemp.Email = vemp.Email;
+                //vemp.Organic = vemp.Organic;
+                _context.Update(vemp);
                 _context.SaveChanges();
+
+
+
+
+
+
+
+
+
                 status = "success";
 
                 Logs log = new Logs();
@@ -547,7 +575,7 @@ namespace ScreeningTool.Controllers
             int?vaccinated = 0;
             DateTime firstdose = new DateTime();
             DateTime seconddose = new DateTime();
-
+            DateTime booster1 = new DateTime();
 
 
 
@@ -586,7 +614,7 @@ namespace ScreeningTool.Controllers
                     vaccinated = employee.Vaccinated;
                     firstdose = employee.FirstDose;
                     seconddose = employee.SecondDose;
-
+                    booster1 = employee.Booster1;
                 }
                 else
                 {
@@ -623,7 +651,8 @@ namespace ScreeningTool.Controllers
                 bday,
                 vaccinated,
             firstdose,
-            seconddose
+            seconddose,
+            booster1
 
         };
 
@@ -809,7 +838,7 @@ namespace ScreeningTool.Controllers
 
 
 
-                //get sup email
+                //end get sup email
 
 
                 mail.Bcc.Add(new MailAddress("rpgustilo@semirarampc.com"));
@@ -848,14 +877,14 @@ namespace ScreeningTool.Controllers
             }
 
             Logs log = new Logs();
-            log.Action = "Send SMS";
-            log.Description = "Send SMS by SceenLog Id : " + screenid;
+            log.Action = "Send Email";
+            log.Description = "Send Email by SceenLog Id : " + screenid;
             log.Status = res.message;
             _context.Logs.Add(log);
             _context.SaveChanges();
             return res.message;
 
-            return "";
+            
         }
         public IActionResult Verification(string id)
         {

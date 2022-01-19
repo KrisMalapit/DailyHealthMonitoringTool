@@ -291,6 +291,10 @@
                                                 <label>2nd dose (Date)</label>
                                                 <input type="text" class="form-control datepicker" id="SecondDose" name="SecondDose">
                                             </div>
+                                            <div class="form-group">
+                                                <label>Booster (Date)</label>
+                                                <input type="text" class="form-control datepicker" id="Booster1" name="Booster1">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -809,13 +813,14 @@
 
                                 $fdose = responsedata.firstdose == '0001-01-01T00:00:00' ? "" : moment(responsedata.firstdose).format("MM/DD/YYYY")
                                 $sdose = responsedata.seconddose == '0001-01-01T00:00:00' ? "" : moment(responsedata.seconddose).format("MM/DD/YYYY")
+                                $booster1 = responsedata.booster1 == '0001-01-01T00:00:00' ? "" : moment(responsedata.booster1).format("MM/DD/YYYY")
+
                                 $('#Vaccinated').val(responsedata.vaccinated).change();
                                 if (responsedata.vaccinated == 1) {
                                     $("#frmDose").removeAttr("hidden")
                                     $("#FirstDose").attr("required", true)
                                 } else {
                                     $("#frmDose").attr("hidden", true)
-
                                     $("#FirstDose").removeAttr("required");
                                 }
 
@@ -825,7 +830,7 @@
 
                                 $('#FirstDose').val($fdose);
                                 $('#SecondDose').val($sdose);
-
+                                $('#Booster1').val($booster1);
 
 
                             } else {
