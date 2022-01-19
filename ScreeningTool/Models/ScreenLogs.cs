@@ -42,6 +42,7 @@ namespace ScreeningTool.Models
         public int Q19 { get; set; }
         public int Q20 { get; set; }
         public int Q21 { get; set; }
+        public int Q22 { get; set; }
 
         public string RemarksQ1 { get; set; }
         public string RemarksQ2 { get; set; }
