@@ -219,7 +219,7 @@ namespace ScreeningTool.Controllers
 
             try
             {
-                if (nvm.TotalScore >= 5)
+                if (nvm.TotalScore >= 4)
                 {
                     if (nvm.Encoder == "employee")
                     {
@@ -246,15 +246,15 @@ namespace ScreeningTool.Controllers
                                + "<br /> Remarks: <br />" + nvm.Remarks + ". <br /><br />", nvm.ScreenLogId, "Non-Employee");
 
 
-                            phonenumber = new string[7];
+                            phonenumber = new string[4];
                             phonenumber[0] = "09957566792"; // madz
                             phonenumber[1] = "09197989212"; // charizza
                             phonenumber[2] = "09277043557"; // jonathan
-                            phonenumber[3] = "09257061809"; // fides quintos
-                            phonenumber[4] = "09173121719"; // joyce lagarde
-                            phonenumber[5] = "09953668620"; // raph
-                            phonenumber[6] = "09998876595"; // jojo tandoc
-                           
+                            //phonenumber[3] = "09257061809"; // fides quintos
+                            //phonenumber[3] = "09173121719"; // joyce lagarde
+                            phonenumber[3] = "09953668620"; // raph
+                            //phonenumber[4] = "09998876595"; // jojo tandoc
+
 
                             status = SendSMS("COVID-19 DAILY HEALTH MONITORING TOOL Infoblast" + Environment.NewLine + Environment.NewLine + nvm.EmployeeName + " has a total score of " + nvm.TotalScore
                                                                   + Environment.NewLine + "Remarks:" + Environment.NewLine + nvm.Remarks, nvm.ScreenLogId);
@@ -327,8 +327,9 @@ namespace ScreeningTool.Controllers
             int q19 = ts.Q19 == 1 ? 5 : 0;
             int q20 = ts.Q20 == 1 ? 1 : 0;
             int q21 = ts.Q21 == 1 ? 5 : 0;
+            int q22 = ts.Q22 == 1 ? 4 : 0;
 
-            int res = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21;
+            int res = q1 + q2 + q3 + q4 + q5 + q6 + q7 + q8 + q9 + q10 + q11 + q12 + q13 + q14 + q15 + q16 + q17 + q18 + q19 + q20 + q21 + q22;
             var temp = Convert.ToDouble(ts.Temperature);
             if (temp > 37.5)
             {
@@ -358,7 +359,7 @@ namespace ScreeningTool.Controllers
 
             rem += ts.Q13 == 1 ? "LOST sense of taste and smell," : "";
             rem += ts.Q14 == 1 ? "HAS SYMPTOMPS for MORE THAN 1 DAY," : "";
-            //rem += ts.Q15 == 1 ? "EXPERIENCED difficulty of breathing or easy fatiguability for a day or more," : "";
+    
 
             rem += ts.Q15 == 1 ? "Notified to undergo quarantine period," : "";
             rem += ts.Q16 == 1 ? "LIVING IN A Brgy-Comp-St-Condo WITH A PUI or CONFIRMED COVID-19 Case without ANY OF THE SYMPTOMS," : "";
@@ -367,7 +368,7 @@ namespace ScreeningTool.Controllers
             rem += ts.Q19 == 1 ? "FEVER," : "";
             rem += ts.Q20 == 1 ? "Waiting RT-PCR," : "";
             rem += ts.Q21 == 1 ? "Positive covid-19 household," : "";
-
+            rem += ts.Q22 == 1 ? "CHILLS," : "";
             rem += temp > 37.5 ? "HIGH TEMPERATURE," : ""; ;
 
 
@@ -663,12 +664,33 @@ namespace ScreeningTool.Controllers
 
         public ActionResult ThankYou(NotificationViewModel nvm)
         {
+           
+            var yd = DateTime.Now.Date;
+            string varDate = yd.Month + "/" + yd.Day + "/" + yd.Year;
+
+
             if (nvm.ScreenDateTime.Date != DateTime.Now.Date)
             {
                 return RedirectToAction("Index");
             }
 
             int DaysCounter = QuaratineCounter(nvm.EmployeeNo);
+
+            if (DaysCounter > 0 && DaysCounter < 14)
+            {
+                string st = "";
+                Task<string> task = SetDepartmentHeadDetails(nvm.DepartmentId, nvm.ScreenLogId);
+                task.Wait();
+
+                if (Server == 0)
+                {
+                    st = " - TEST ONLY";
+                }
+                string _rem = SendEmailHead("COVID-19 DAILY HEALTH MONITORING TOOL Notification <br /><br />" + nvm.EmployeeName +  " has " + DaysCounter
+               + " number of days left for his/her quarantine period as of " + varDate, nvm.ScreenLogId);
+            }
+
+
 
             ViewBag.QuarantineCounter = DaysCounter;
 
@@ -692,7 +714,7 @@ namespace ScreeningTool.Controllers
                 var dept = await _context.Departments.FindAsync(deptId);
                 string deptHeads = dept.DepartmentHeads;
                 var collection = deptHeads.Split(',');
-                phonenumber = new string[collection.Length + 7];
+                phonenumber = new string[collection.Length + 4];
                 emailaddress = new string[collection.Length];
                 int cnt = 0;
                 foreach (var item in collection)
@@ -707,10 +729,10 @@ namespace ScreeningTool.Controllers
                 phonenumber[cnt] = "09957566792"; // madz
                 phonenumber[cnt + 1] = "09197989212"; // charizza
                 phonenumber[cnt + 2] = "09277043557"; // jonathan
-                phonenumber[cnt + 3] = "09257061809"; // fides quintos
-                phonenumber[cnt + 4] = "09173121719"; // joyce lagarde
-                phonenumber[cnt + 5] = "09953668620"; // raph
-                phonenumber[cnt + 6] = "09998876595"; // jojo tandoc
+                //phonenumber[cnt + 3] = "09257061809"; // fides quintos
+                //phonenumber[cnt + 3] = "09173121719"; // joyce lagarde
+                phonenumber[cnt + 3] = "09953668620"; // raph
+                //phonenumber[cnt + 4] = "09998876595"; // jojo tandoc
               
                 status = "success";
             }
@@ -824,7 +846,12 @@ namespace ScreeningTool.Controllers
                 //get sup email
                 if (sendertype == "Employee")
                 {
-                    mail.To.Add(new MailAddress("hrod@semirarampc.com"));
+                    if (Server == 1)
+                    {
+                        mail.To.Add(new MailAddress("hrod@semirarampc.com"));
+
+                    }
+
                     foreach (var item in emailaddress)
                     {
                         mail.CC.Add(new MailAddress(item));
@@ -839,12 +866,16 @@ namespace ScreeningTool.Controllers
 
 
                 //end get sup email
-
+                string st = "";
+                if (Server == 0)
+                {
+                    st = " - TEST ONLY";
+                }
 
                 mail.Bcc.Add(new MailAddress("rpgustilo@semirarampc.com"));
                 //mail.Bcc.Add(new MailAddress("kcmalapit@semirarampc.com"));
 
-                mail.Subject = "DAILY HEALTH MONITORING TOOL";
+                mail.Subject = "DAILY HEALTH MONITORING TOOL" + st;
                 mail.Body = string.Format(body + " Click on this link to view details. https://www.semirarampc.com:8443/DailyHealthMonitoringTool");
                 mail.IsBodyHtml = true;
 
@@ -885,6 +916,78 @@ namespace ScreeningTool.Controllers
             return res.message;
 
             
+        }
+        private string SendEmailHead(string msg, int screenid)
+        {
+            SMSArray res = new SMSArray();
+
+            try
+            {
+                
+                var body = msg;
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("webhelpdeskadmin@semirarampc.com", "Daily Health Monitoring Tool Notification");
+
+                foreach (var item in emailaddress)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        mail.To.Add(new MailAddress(item));
+                    }
+                    
+                }
+               
+
+
+                string st = "";
+                if (Server == 0)
+                {
+                    st = " - TEST ONLY";
+                }
+                mail.Bcc.Add(new MailAddress("rpgustilo@semirarampc.com"));
+                mail.Bcc.Add(new MailAddress("kcmalapit@semirarampc.com"));
+
+                mail.Subject = "DAILY HEALTH MONITORING TOOL - Quarantine Counter" + st;
+                mail.Body = string.Format(body);
+                mail.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient()) //mail server
+                {
+                    try
+                    {
+                        smtp.Host = "mail.hoaccess.com";
+                        smtp.Credentials = new System.Net.NetworkCredential(@"smcdacon\webhelpdeskadmin", "Str@wb3rry##");
+                        smtp.Port = 587;
+                        smtp.EnableSsl = false;
+                        smtp.Send(mail);
+
+                    }
+                    catch (Exception e)
+                    {
+
+
+                        Environment.Exit(0);
+                    }
+
+                }
+                res.message = "Done Email";
+
+            }
+            catch (Exception e)
+            {
+
+                res.message = e.Message.ToString();
+            }
+
+            Logs log = new Logs();
+            log.Action = "Send Email Head";
+            log.Description = "Send Email Head by SceenLog Id : " + screenid;
+            log.Status = res.message;
+            _context.Logs.Add(log);
+            _context.SaveChanges();
+            return res.message;
+
+
         }
         public IActionResult Verification(string id)
         {

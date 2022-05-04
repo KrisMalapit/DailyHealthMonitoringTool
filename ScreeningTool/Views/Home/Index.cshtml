@@ -474,6 +474,19 @@
                                                 <tr>
 
                                                     <td>
+                                                        Do you experience CHILLS? 
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q22" value="1">
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" name="Q22" value="0">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
                                                         Have you experienced ANY OF THE ABOVE SYMPTOMS for MORE THAN 1 DAY?
                                                     </td>
 
@@ -953,7 +966,7 @@
                     $name_value = $name_value.replace("<br>", "");
                     data.push({name: $name, value:$name_value});
                  });
-
+   
 
                  $.ajax({
                     url: "@Url.Action("SaveData")"
